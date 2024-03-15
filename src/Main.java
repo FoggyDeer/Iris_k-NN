@@ -10,7 +10,7 @@ public class Main {
             calculatedData.put(vector.vectorsModulus2(irisVector), irisVector.getName());
         }
         ArrayList<String> closestVectors = new ArrayList<>(calculatedData.values());
-        closestVectors = new ArrayList<>(closestVectors.subList(0, k - 1));
+        closestVectors = new ArrayList<>(closestVectors.subList(0, k <= closestVectors.size() ? k - 1 : closestVectors.size()));
         HashMap<String, Integer> map = new HashMap<>();
         for(String s : closestVectors){
             map.put(s, map.get(s) != null ? map.get(s)+1 : 1);
@@ -43,21 +43,19 @@ public class Main {
         while (running) {
             System.out.println("1. Test data from Test-set.csv | 2. Enter custom vector | 3. Exit");
             try{
-                switch(Integer.parseInt(scanner.nextLine())){
-                    case 1: {
+                switch (Integer.parseInt(scanner.nextLine())) {
+                    case 1 -> {
                         System.out.println("Enter k value: ");
                         System.out.println("Accuracy: " + testFromFile(Integer.parseInt(scanner.nextLine())));
-                    } break;
-                    case 2: {
+                    }
+                    case 2 -> {
                         System.out.println("Enter iris data (0.0,0.0,0.0,0.0):");
-                        IrisVector irisVector = new IrisVector(scanner.nextLine()+", ");
+                        IrisVector irisVector = new IrisVector(scanner.nextLine() + ", ");
                         System.out.println("Enter k value:");
                         int k = Integer.parseInt(scanner.nextLine());
                         System.out.println("Prediction: " + test(irisVector, k));
-                    } break;
-                    case 3: {
-                        running = false;
-                    } break;
+                    }
+                    case 3 -> running = false;
                 }
             }catch (NumberFormatException e){
                 System.out.println("Wrong number format!");
